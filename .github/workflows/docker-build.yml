@@ -29,7 +29,7 @@ jobs:
           context: .
           file: Dockerfile.release
           push: true
-          tags: ${{ env.GITHUB_REPOSITORY }}:release
+          tags: ${{ github.repository }}:release
 
   docker-node:
     runs-on: ubuntu-latest
@@ -56,4 +56,4 @@ jobs:
           context: .
           file: Dockerfile.node
           push: true
-          tags: ${{ env.GITHUB_REPOSITORY }}:node
+          tags: ${{ github.repository }}:node
