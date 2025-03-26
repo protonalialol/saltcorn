@@ -31,7 +31,7 @@ jobs:
           push: true
           tags: ${{ github.repository }}:release
 
-  docker-node:
+  docker-light:
     runs-on: ubuntu-latest
     steps:
       -
@@ -54,6 +54,6 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: Dockerfile.node
+          file: Dockerfile.light
           push: true
-          tags: ${{ github.repository }}:node
+          tags: ${{ github.repository }}:light
