@@ -7,6 +7,6 @@ ENV SALTCORN_DISABLE_UPGRADE "true"
 
 RUN npm install -g @saltcorn/cli@${SALTCORN_VERSION} --omit=dev
 
-USER node
+# USER node
 
 ENTRYPOINT ["/usr/local/bin/saltcorn"]
