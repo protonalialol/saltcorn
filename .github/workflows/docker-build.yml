@@ -4,34 +4,6 @@ on:
   push:
 
 jobs:
-  docker-release:
-    if: false
-    runs-on: ubuntu-latest
-    steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v4
-      -
-        name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ vars.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      -
-        name: Build and push
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: Dockerfile.release
-          push: true
-          tags: ${{ github.repository }}:release
-
   docker-light:
     runs-on: ubuntu-latest
     strategy:
@@ -61,8 +33,8 @@ jobs:
             NODE_BASE_IMAGE=${{ matrix.node_version }}-alpine3.21
             SALTCORN_VERSION=1.1.3
           context: .
-          file: Dockerfile.light
+          file: Dockerfile.release.node
           push: true
           provenance: mode=max
           sbom: true
-          tags: ${{ github.repository }}:light-${{ matrix.node_version }}
+          tags: ${{ github.repository }}:node-${{ matrix.node_version }}
