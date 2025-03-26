@@ -29,4 +29,4 @@ jobs:
           context: .
           file: Dockerfile.release
           push: true
-          tags: protonalialol/saltcorn:test
+          tags: ${{ env.GITHUB_REPOSITORY }}:test
