@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - helm-chart
 
 jobs:
   release:
