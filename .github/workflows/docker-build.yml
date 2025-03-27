@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       MODE: ${{ github.ref == 'refs/heads/master' && '' || '-ci' }}
+      SALTCORN_VERSION: "1.1.3"
     strategy:
       matrix:
         node_version: ["18.20", "20.19", "22.14"]
@@ -33,10 +34,10 @@ jobs:
         with:
           build-args: |
             NODE_BASE_IMAGE=${{ matrix.node_version }}-alpine3.21
-            SALTCORN_VERSION=1.1.3
+            SALTCORN_VERSION=${{ env.SALTCORN_VERSION }}
           context: .
           file: Dockerfile.release.node
           push: true
           provenance: mode=max
           sbom: true
-          tags: ${{ github.repository }}:node-${{ matrix.node_version }}${{ env.MODE }}
+          tags: ${{ github.repository }}:${{ env.SALTCORN_VERSION }}-node-${{ matrix.node_version }}${{ env.MODE }}
