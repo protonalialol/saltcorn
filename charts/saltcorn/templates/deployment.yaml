@@ -71,9 +71,13 @@ spec:
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with .Values.volumeMounts }}
           volumeMounts:
+          {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- if eq .Values.persistence.type "pvc" }}
+          - name: pvc-storage
+            mountPath: /mnt/db
           {{- end }}
   	      {{- with .Values.command }}
           command:
@@ -86,6 +90,11 @@ spec:
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if eq .Values.persistence.type "pvc" }}
+        - name: pvc-storage
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.pvc.existingClaim | default .Release.Name }}
       {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
