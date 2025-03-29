@@ -5,7 +5,7 @@ metadata:
   labels:
     name: "reset"
 spec:
-  replicas: 0
+  replicas: {{ .Values.resetReplicaCount }}
   selector:
     matchLabels:
       name: "reset"
@@ -51,11 +51,9 @@ spec:
           volumeMounts:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-  	      {{- with .Values.command }}
-          command:
-            - "sh"
-            - "-c"
-            - "saltcorn reset-schema -f"
+  	      {{- with .Values.args }}
+          args:
+            {{- toYaml . | nindent 12 }}
           {{- end }}
       {{- with .Values.volumes }}
       volumes:

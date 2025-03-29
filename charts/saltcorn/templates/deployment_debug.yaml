@@ -5,7 +5,7 @@ metadata:
   labels:
     name: "debug"
 spec:
-  replicas: 1
+  replicas: {{ .Values.debugReplicaCount }}
   selector:
     matchLabels:
       name: "debug"

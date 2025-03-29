@@ -1,4 +1,6 @@
 replicaCount: 1
+resetReplicaCount: 1
+debugReplicaCount: 0
 
 image:
   repository: protonalialol/saltcorn
