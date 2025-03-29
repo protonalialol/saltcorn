@@ -1,5 +1,5 @@
 replicaCount: 1
-resetReplicaCount: 1
+resetReplicaCount: 0
 debugReplicaCount: 0
 
 image:
