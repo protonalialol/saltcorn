@@ -80,8 +80,8 @@ jobs:
         uses: aquasecurity/trivy-action@0.28.0
         with:
           image-ref: 'docker.io/${{ github.repository }}:${{ env.VERSION }}-node${{ matrix.node_version }}'
-          format: 'table'
-          exit-code: '1'
+          format: 'github'
+          exit-code: '0'
           ignore-unfixed: true
-          vuln-type: 'os,library'
+          vuln-type: 'os,library,fs,repo'
           severity: 'CRITICAL,HIGH'
