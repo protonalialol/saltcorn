@@ -1,4 +1,7 @@
-{{- if and (eq .Values.persistence.type "pvc") (eq .Values.persistence.pvc.existingClaim "") }}
+{{- if or 
+    .Values.persistence.resetSchema 
+    (and (eq .Values.persistence.type "pvc") (eq .Values.persistence.pvc.existingClaim "")) 
+}}
 apiVersion: batch/v1
 kind: Job
 metadata:

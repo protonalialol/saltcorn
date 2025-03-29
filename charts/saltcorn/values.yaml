@@ -11,10 +11,11 @@ replicaCount: 1
 debugReplicaCount: 0
 
 server:
-  debug: false
+  debug: true
 
 persistence:
-  type: "pvc" # Valid options: "pvc" or "postgresql"
+  type: "postgresql" # Valid options: "pvc" or "postgresql"
+  resetSchema: true
 
   pvc:
     existingClaim: ""
