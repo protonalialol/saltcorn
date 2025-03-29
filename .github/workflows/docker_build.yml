@@ -54,7 +54,7 @@ jobs:
         if: github.ref != 'refs/heads/master'
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          image-ref: 'docker.io/${{ github.repository }}:${{ env.BRANCH }}-node${{ matrix.node_version }}
+          image-ref: 'docker.io/${{ github.repository }}:${{ env.BRANCH }}-node${{ matrix.node_version }}'
           format: 'table'
           exit-code: '1'
           ignore-unfixed: true
