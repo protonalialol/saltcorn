@@ -60,3 +60,24 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Create persistence env vars for saltcorn
+*/}}
+{{- define "saltcorn.envPersistence" -}}
+{{- if eq .Values.persistence.type "postgresql" }}
+- name: PGUSER
+  value: "{{ .Values.persistence.postgresql.pgUser }}"
+- name: PGPASSWORD
+  value: "{{ .Values.persistence.postgresql.pgPassword }}"
+- name: PGHOST
+  value: "{{ .Values.persistence.postgresql.pgHost }}"
+- name: PGPORT
+  value: "{{ .Values.persistence.postgresql.pgPort }}"
+- name: PGDATABASE
+  value: "{{ .Values.persistence.postgresql.pgDatabase }}"
+{{- else if eq .Values.persistence.type "pvc" }}
+- name: SQLITE_FILEPATH
+  value: /mnt/db/sqlite.db
+{{- end }}
+{{- end }}

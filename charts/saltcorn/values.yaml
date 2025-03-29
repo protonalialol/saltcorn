@@ -12,7 +12,7 @@ resetReplicaCount: 0
 debugReplicaCount: 0
 
 persistence:
-  type: "pvc" # Valid options: "pvc" or "postgresql"
+  type: "postgresql" # Valid options: "pvc" or "postgresql"
 
   pvc:
     existingClaim: ""
