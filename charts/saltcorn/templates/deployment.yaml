@@ -61,27 +61,21 @@ spec:
           {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- if eq .Values.persistence.type "pvc" }}
-          - name: pvc-storage
-            mountPath: /mnt/db
-          {{- end }}
+          {{- include "saltcorn.volumeClaimPvc" . | nindent 12 }}
   	      {{- with .Values.command }}
           command:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with .Values.args }}
           args:
+          {{- include "saltcorn.argsServer" . | nindent 12 }}
+          {{- with .Values.args }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
-      {{- with .Values.volumes }}
       volumes:
+      {{- with .Values.volumes }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- if eq .Values.persistence.type "pvc" }}
-        - name: pvc-storage
-          persistentVolumeClaim:
-            claimName: {{ .Values.persistence.pvc.existingClaim | default .Release.Name }}
-      {{- end }}
+      {{- include "saltcorn.volumePvc" . | nindent 8 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -65,7 +65,7 @@ Create the name of the service account to use
 Create persistence env vars for saltcorn
 */}}
 {{- define "saltcorn.envPersistence" -}}
-{{- if eq .Values.persistence.type "postgresql" }}
+{{- if eq .Values.persistence.type "postgresql" -}}
 - name: PGUSER
   value: "{{ .Values.persistence.postgresql.pgUser }}"
 - name: PGPASSWORD
@@ -76,8 +76,47 @@ Create persistence env vars for saltcorn
   value: "{{ .Values.persistence.postgresql.pgPort }}"
 - name: PGDATABASE
   value: "{{ .Values.persistence.postgresql.pgDatabase }}"
-{{- else if eq .Values.persistence.type "pvc" }}
+{{- else if eq .Values.persistence.type "pvc" -}}
 - name: SQLITE_FILEPATH
   value: /mnt/db/sqlite.db
+{{- end }}
+{{- end }}
+
+{{/*
+Create volume entries for type "pvc"
+*/}}
+{{- define "saltcorn.volumePvc" -}}
+{{- if eq .Values.persistence.type "pvc" -}}
+- name: {{ .Values.persistence.pvc.existingClaim | default .Release.Name }}
+  persistentVolumeClaim:
+    claimName: {{ .Values.persistence.pvc.existingClaim | default .Release.Name }}
+{{- end }}
+{{- end }}
+
+{{/*
+Create volumeClaim entries for type "pvc"
+*/}}
+{{- define "saltcorn.volumeClaimPvc" -}}
+{{- if eq .Values.persistence.type "pvc" -}}
+- name: {{ .Values.persistence.pvc.existingClaim | default .Release.Name }}
+  mountPath: /mnt/db
+{{- end }}
+{{- end }}
+
+{{/*
+Create reset-schema args
+*/}}
+{{- define "saltcorn.argsReset" -}}
+- "reset-schema"
+- "-f"
+{{- end }}
+
+{{/*
+Create server args
+*/}}
+{{- define "saltcorn.argsServer" -}}
+- "serve"
+{{- if .Values.server.debug }}
+- "-v"
 {{- end }}
 {{- end }}

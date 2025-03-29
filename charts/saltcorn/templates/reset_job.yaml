@@ -5,6 +5,8 @@ metadata:
   name: {{ include "saltcorn.fullname" . }}-reset-job
   labels:
     app: {{ include "saltcorn.fullname" . }}
+  annotations:
+    "helm.sh/hook": pre-install
 spec:
   template:
     metadata:
@@ -18,6 +20,7 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
+      restartPolicy: "OnFailure"
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -48,27 +51,18 @@ spec:
           {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- if eq .Values.persistence.type "pvc" }}
-          - name: pvc-storage
-            mountPath: /mnt/db
-          {{- end }}
+          {{- include "saltcorn.volumeClaimPvc" . | nindent 12 }}
   	      {{- with .Values.command }}
           command:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with .Values.args }}
           args:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-      {{- with .Values.volumes }}
+            {{- include "saltcorn.argsReset" . | nindent 12 }}
       volumes:
+      {{- with .Values.volumes }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- if eq .Values.persistence.type "pvc" }}
-        - name: pvc-storage
-          persistentVolumeClaim:
-            claimName: {{ .Values.persistence.pvc.existingClaim | default .Release.Name }}
-      {{- end }}
+      {{- include "saltcorn.volumePvc" . | nindent 8 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -81,6 +75,5 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-
   backoffLimit: 4
 {{- end }}

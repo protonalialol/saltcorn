@@ -1,6 +1,6 @@
 image:
   repository: protonalialol/saltcorn
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   tag: ""
 
 imagePullSecrets: []
@@ -8,16 +8,18 @@ nameOverride: ""
 fullnameOverride: ""
 
 replicaCount: 1
-resetReplicaCount: 0
 debugReplicaCount: 0
+
+server:
+  debug: false
 
 persistence:
   type: "pvc" # Valid options: "pvc" or "postgresql"
 
   pvc:
     existingClaim: ""
-    size: 10Gi
-    accessMode: ReadWriteMany
+    size: 1Gi
+    accessMode: ReadWriteOnce
     storageClassName: "local-path"
 
   postgresql:
@@ -94,9 +96,7 @@ volumeMounts: []
 
 command: []
 
-args:
-  - "serve"
-  - "-v"
+args: []
 
 nodeSelector: {}
 

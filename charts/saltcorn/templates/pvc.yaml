@@ -2,12 +2,14 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ include "saltcorn.fullname" . }}-pvc
+  name: {{ .Release.Name }}
   labels:
     app: {{ include "saltcorn.fullname" . }}
+  annotations:
+    "helm.sh/hook": pre-install
 spec:
   accessModes:
-    - ReadWriteMany
+    - {{ .Values.persistence.pvc.accessMode }}
   resources:
     requests:
       storage: {{ .Values.persistence.pvc.size }}
