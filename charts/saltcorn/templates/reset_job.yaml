@@ -8,6 +8,7 @@ metadata:
   annotations:
     "helm.sh/hook": pre-install
 spec:
+  ttlSecondsAfterFinished: 30
   template:
     metadata:
       {{- with .Values.podAnnotations }}
