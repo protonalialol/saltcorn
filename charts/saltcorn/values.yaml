@@ -1,7 +1,3 @@
-replicaCount: 1
-resetReplicaCount: 0
-debugReplicaCount: 0
-
 image:
   repository: protonalialol/saltcorn
   pullPolicy: Always
@@ -11,23 +7,36 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+replicaCount: 1
+resetReplicaCount: 0
+debugReplicaCount: 0
+
+persistence:
+  type: "postgresql" # Valid options: "pvc" or "postgresql"
+
+  pvc:
+    existingClaim: ""
+    size: 10Gi
+    accessMode: ReadWriteMany
+
+  postgresql:
+    pgUser: "admin"
+    pgPassword: "admin"
+    pgHost: "postgresql.postgresql.svc.cluster.local"
+    pgPort: "5432"
+    pgDatabase: "saltcorn"
+
 env:
   - name: NODE_OPTIONS
     value: --max-old-space-size=512
-  - name: SALTCORN_SESSION_SECRET
-    value: topsecret
-  #- name: SQLITE_FILEPATH
-  #  value: /mnt/db/sqlite.db
-  - name: PGUSER
-    value: admin
-  - name: PGHOST
-    value: postgresql.postgresql.svc.cluster.local
-  - name: PGPORT
-    value: "5432"
-  - name: PGPASSWORD
-    value: admin
-  - name: PGDATABASE
-    value: saltcorn
+
+resources:
+  limits:
+    cpu: 1
+    memory: 2048Mi
+  requests:
+    cpu: 100m
+    memory: 512Mi
 
 serviceAccount:
   create: true
@@ -78,27 +87,11 @@ route:
     termination: "edge"
     insecureEdgeTerminationPolicy: "Allow"
 
-resources:
-  limits:
-    cpu: 1
-    memory: 2048Mi
-  requests:
-    cpu: 100m
-    memory: 512Mi
-
 volumes: []
 
 volumeMounts: []
 
-persistence:
-  size: 1Gi
-  storageClassName: "local-path"
-
-command:
-  []
-  # - "sh"
-  # - "-c"
-  # - "saltcorn serve -v"
+command: []
 
 args:
   - "serve"
