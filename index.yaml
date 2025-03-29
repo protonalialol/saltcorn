@@ -3,6 +3,16 @@ entries:
   saltcorn:
   - apiVersion: v2
     appVersion: 0.0.2-node18.20-pre
+    created: "2025-03-29T01:01:22.122620899Z"
+    description: A Helm chart for Kubernetes
+    digest: 574e9cb7e29381ebca15a284cc2393bd5936d1a9072cc370b655f19d38bdc888
+    name: saltcorn
+    type: application
+    urls:
+    - https://github.com/protonalialol/saltcorn/releases/download/saltcorn-0.4.3/saltcorn-0.4.3.tgz
+    version: 0.4.3
+  - apiVersion: v2
+    appVersion: 0.0.2-node18.20-pre
     created: "2025-03-29T00:56:40.635255006Z"
     description: A Helm chart for Kubernetes
     digest: 6f0c7325d89702b343e177616f95b8329c71318fe8972727890cbe36b965d8d6
@@ -91,4 +101,4 @@ entries:
     urls:
     - https://github.com/protonalialol/saltcorn/releases/download/saltcorn-0.1.0/saltcorn-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-29T00:56:40.63529407Z"
+generated: "2025-03-29T01:01:22.12266449Z"
