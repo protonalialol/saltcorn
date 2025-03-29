@@ -1,3 +1,4 @@
+{{- if and (eq .Values.persistence.type "pvc") (eq .Values.persistence.pvc.existingClaim "") }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -9,5 +10,6 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: {{ .Values.persistence.size }}
-  storageClassName: {{ .Values.persistence.storageClassName }}
+      storage: {{ .Values.persistence.pvc.size }}
+  storageClassName: {{ .Values.persistence.pvc.storageClassName }}
+{{- end }}

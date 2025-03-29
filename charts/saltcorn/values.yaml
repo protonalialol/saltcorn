@@ -18,6 +18,7 @@ persistence:
     existingClaim: ""
     size: 10Gi
     accessMode: ReadWriteMany
+    storageClassName: "local-path"
 
   postgresql:
     pgUser: "admin"
