@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "saltcorn.fullname" . }}
+  name: {{ include "saltcorn.fullname" . }}-debug
   labels:
-    {{- include "saltcorn.labels" . | nindent 4 }}
+    name: "debug"
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: 1
   selector:
     matchLabels:
-      {{- include "saltcorn.selectorLabels" . | nindent 6 }}
+      name: "debug"
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -16,10 +16,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "saltcorn.labels" . | nindent 8 }}
-        {{- with .Values.podLabels }}
-        {{- toYaml . | nindent 8 }}
-        {{- end }}
+        name: "debug"
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -54,14 +51,10 @@ spec:
           volumeMounts:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-  	      {{- with .Values.command }}
           command:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-          {{- with .Values.args }}
-          args:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
+            - "sh"
+            - "-c"
+            - "sleep 6000"
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}

@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "saltcorn.fullname" . }}
+  name: {{ include "saltcorn.fullname" . }}-reset
   labels:
-    {{- include "saltcorn.labels" . | nindent 4 }}
+    name: "reset"
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: 0
   selector:
     matchLabels:
-      {{- include "saltcorn.selectorLabels" . | nindent 6 }}
+      name: "reset"
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -16,10 +16,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "saltcorn.labels" . | nindent 8 }}
-        {{- with .Values.podLabels }}
-        {{- toYaml . | nindent 8 }}
-        {{- end }}
+        name: "reset"
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -56,11 +53,9 @@ spec:
           {{- end }}
   	      {{- with .Values.command }}
           command:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-          {{- with .Values.args }}
-          args:
-            {{- toYaml . | nindent 12 }}
+            - "sh"
+            - "-c"
+            - "saltcorn reset-schema -f"
           {{- end }}
       {{- with .Values.volumes }}
       volumes:
