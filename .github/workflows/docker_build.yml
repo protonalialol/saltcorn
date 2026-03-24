@@ -52,7 +52,7 @@ jobs:
 
       - name: Run Trivy vulnerability scanner (Branch)
         if: github.ref != 'refs/heads/master'
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@0.35.0
         with:
           image-ref: 'docker.io/${{ github.repository }}:${{ env.BRANCH }}-node${{ matrix.node_version }}'
           format: 'table'
@@ -77,7 +77,7 @@ jobs:
 
       - name: Run Trivy vulnerability scanner (Main)
         if: github.ref == 'refs/heads/master'
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@0.35.0
         with:
           image-ref: 'docker.io/${{ github.repository }}:${{ env.VERSION }}-node${{ matrix.node_version }}'
           format: 'table'
