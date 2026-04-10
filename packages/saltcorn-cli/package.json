@@ -17,7 +17,7 @@
     "@saltcorn/mobile-app": "1.1.4-alpha.3",
     "@saltcorn/mobile-builder": "1.1.4-alpha.3",
     "@saltcorn/plugins-loader": "1.1.4-alpha.3",
-    "@saltcorn/server": "1.1.4-alpha.3",
+    "@saltcorn/server": "1.5.5",
     "contractis": "^0.1.0",
     "dateformat": "^4.6.3",
     "inquirer": "^12.3.3",
