@@ -10,7 +10,7 @@
     "clean": "echo \"Error: no TypeScript support yet\""
   },
   "dependencies": {
-    "@saltcorn/data": "1.1.4-alpha.3"
+    "@saltcorn/data": "1.4.5"
   },
   "author": "Tom Nielsen",
   "license": "MIT",
