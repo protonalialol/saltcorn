@@ -49,7 +49,7 @@
     "acorn": "^8.14.0",
     "assert": "^2.1.0",
     "astring": "^1.9.0",
-    "axios": "^0.29.0",
+    "axios": "^1.15.0",
     "bcryptjs": "^2.4.3",
     "constants-browserify": "^1.0.0",
     "contractis": "^0.1.0",
@@ -86,7 +86,7 @@
     "crypto-browserify": "3.12.1",
     "https-browserify": "1.0.0",
     "browserify-zlib": "0.2.0",
-    "nodemailer": "^6.10.0",
+    "nodemailer": "^8.0.5",
     "mjml": "5.0.0-alpha.6",
     "underscore": "^1.13.1",
     "unidecode": "1.1.0"
@@ -114,7 +114,7 @@
     "jsonwebtoken": "^9.0.2",
     "ts-jest": "^29.2.5",
     "typescript": "5.1.6",
-    "webpack": "5.97.1",
+    "webpack": "5.104.1",
     "webpack-cli": "6.0.1"
   },
   "jest": {
